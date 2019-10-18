@@ -1,0 +1,145 @@
+﻿@model MvcECommerce.Models.Products
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Products</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageURL)
+        </dt>
+
+        <dd>
+            <img src="@Model.ImageURL" width="100" height="100" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsNew)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsNew)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsSale)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsSale)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegisterDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegisterDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Brands.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Brands.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Categories.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categories.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductDetails.WebId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductDetails.WebId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductDetails.IsAvailable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductDetails.IsAvailable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductDetails.IsCondition)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductDetails.IsCondition)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductDetails.Description)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.ProductDetails.Description)*@
+            @Html.Raw(Model.ProductDetails.Description)
+        </dd>
+
+        <dt>
+            @Html.Label("Images")
+        </dt>
+        <dd>
+            <table>
+                <tr>
+                    @foreach (var item in Model.ProductDetails.Images)
+                    {
+                        <td>
+                            <img src="@item.ImageURLt" width="100" hei />
+                        </td>
+                    }
+                </tr>
+            </table>
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
