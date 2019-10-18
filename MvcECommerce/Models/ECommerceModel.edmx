@@ -33,7 +33,7 @@
           <Key>
             <PropertyRef Name="ProductId" />
           </Key>
-          <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
           <Property Name="WebId" Type="int" />
           <Property Name="IsAvailable" Type="bit" />
           <Property Name="IsCondition" Type="bit" />
@@ -172,7 +172,7 @@
           <Property Name="BrandId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_Products_Brands" FromRole="Brands" ToRole="Products" />
+          <NavigationProperty Name="Products" Relationship="ECommerce_2019_DbModel.FK_Products_Brands" FromRole="Brands" ToRole="Products" />
         </EntityType>
         <EntityType Name="Categories">
           <Key>
@@ -181,7 +181,7 @@
           <Property Name="CategoryId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_Products_Categories" FromRole="Categories" ToRole="Products" />
+          <NavigationProperty Name="Products" Relationship="ECommerce_2019_DbModel.FK_Products_Categories" FromRole="Categories" ToRole="Products" />
         </EntityType>
         <EntityType Name="Images">
           <Key>
@@ -190,7 +190,41 @@
           <Property Name="ImageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ImageURL" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="ImageURLt" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ProductDetails" Relationship="Self.ProductToImages" FromRole="Images" ToRole="ProductDetails" />
+          <NavigationProperty Name="ProductDetails" Relationship="ECommerce_2019_DbModel.ProductToImages" FromRole="Images" ToRole="ProductDetails" />
+        </EntityType>
+        <EntityContainer Name="ECommerce_2019_DbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Brands" EntityType="Self.Brands" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" />
+          <EntitySet Name="Images" EntityType="Self.Images" />
+          <EntitySet Name="sysdiagrams" EntityType="ECommerce_2019_DbModel.sysdiagram" />
+          <EntitySet Name="ProductDetails" EntityType="ECommerce_2019_DbModel.ProductDetails" />
+          <AssociationSet Name="ProductToImages" Association="ECommerce_2019_DbModel.ProductToImages">
+            <End Role="Images" EntitySet="Images" />
+            <End Role="ProductDetails" EntitySet="ProductDetails" />
+          </AssociationSet>
+          <EntitySet Name="Products" EntityType="ECommerce_2019_DbModel.Products" />
+          <AssociationSet Name="FK_Products_Brands" Association="ECommerce_2019_DbModel.FK_Products_Brands">
+            <End Role="Brands" EntitySet="Brands" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Categories" Association="ECommerce_2019_DbModel.FK_Products_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductDetails_Products" Association="ECommerce_2019_DbModel.FK_ProductDetails_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductDetails" EntitySet="ProductDetails" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="ProductDetails">
           <Key>
@@ -201,9 +235,13 @@
           <Property Name="IsAvailable" Type="Boolean" />
           <Property Name="IsCondition" Type="Boolean" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_ProductDetails_Products" FromRole="ProductDetails" ToRole="Products" />
-          <NavigationProperty Name="Images" Relationship="Self.ProductToImages" FromRole="ProductDetails" ToRole="Images" />
+          <NavigationProperty Name="Images" Relationship="ECommerce_2019_DbModel.ProductToImages" FromRole="ProductDetails" ToRole="Images" />
+          <NavigationProperty Name="Products" Relationship="ECommerce_2019_DbModel.FK_ProductDetails_Products" FromRole="ProductDetails" ToRole="Products" />
         </EntityType>
+        <Association Name="ProductToImages">
+          <End Type="ECommerce_2019_DbModel.Images" Role="Images" Multiplicity="*" />
+          <End Type="ECommerce_2019_DbModel.ProductDetails" Role="ProductDetails" Multiplicity="*" />
+        </Association>
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="ProductId" />
@@ -218,13 +256,13 @@
           <Property Name="IsSale" Type="Boolean" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="RegisterDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Brands" Relationship="Self.FK_Products_Brands" FromRole="Products" ToRole="Brands" />
-          <NavigationProperty Name="Categories" Relationship="Self.FK_Products_Categories" FromRole="Products" ToRole="Categories" />
-          <NavigationProperty Name="ProductDetails" Relationship="Self.FK_ProductDetails_Products" FromRole="Products" ToRole="ProductDetails" />
+          <NavigationProperty Name="Brands" Relationship="ECommerce_2019_DbModel.FK_Products_Brands" FromRole="Products" ToRole="Brands" />
+          <NavigationProperty Name="Categories" Relationship="ECommerce_2019_DbModel.FK_Products_Categories" FromRole="Products" ToRole="Categories" />
+          <NavigationProperty Name="ProductDetails" Relationship="ECommerce_2019_DbModel.FK_ProductDetails_Products" FromRole="Products" ToRole="ProductDetails" />
         </EntityType>
         <Association Name="FK_Products_Brands">
-          <End Role="Brands" Type="Self.Brands" Multiplicity="1" />
-          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <End Type="ECommerce_2019_DbModel.Brands" Role="Brands" Multiplicity="1" />
+          <End Type="ECommerce_2019_DbModel.Products" Role="Products" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Brands">
               <PropertyRef Name="BrandId" />
@@ -235,8 +273,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Products_Categories">
-          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
-          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <End Type="ECommerce_2019_DbModel.Categories" Role="Categories" Multiplicity="1" />
+          <End Type="ECommerce_2019_DbModel.Products" Role="Products" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categories">
               <PropertyRef Name="CategoryId" />
@@ -247,8 +285,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductDetails_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="1" />
-          <End Role="ProductDetails" Type="Self.ProductDetails" Multiplicity="0..1" />
+          <End Type="ECommerce_2019_DbModel.Products" Role="Products" Multiplicity="1" />
+          <End Type="ECommerce_2019_DbModel.ProductDetails" Role="ProductDetails" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Products">
               <PropertyRef Name="ProductId" />
@@ -258,45 +296,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="ProductToImages">
-          <End Role="Images" Type="Self.Images" Multiplicity="*" />
-          <End Role="ProductDetails" Type="Self.ProductDetails" Multiplicity="*" />
-        </Association>
-        <EntityContainer Name="ECommerce_2019_DbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Brands" EntityType="Self.Brands" />
-          <EntitySet Name="Categories" EntityType="Self.Categories" />
-          <EntitySet Name="Images" EntityType="Self.Images" />
-          <EntitySet Name="ProductDetails" EntityType="Self.ProductDetails" />
-          <EntitySet Name="Products" EntityType="Self.Products" />
-          <AssociationSet Name="FK_Products_Brands" Association="Self.FK_Products_Brands">
-            <End Role="Brands" EntitySet="Brands" />
-            <End Role="Products" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Products_Categories" Association="Self.FK_Products_Categories">
-            <End Role="Categories" EntitySet="Categories" />
-            <End Role="Products" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductDetails_Products" Association="Self.FK_ProductDetails_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="ProductDetails" EntitySet="ProductDetails" />
-          </AssociationSet>
-          <AssociationSet Name="ProductToImages" Association="Self.ProductToImages">
-            <End Role="Images" EntitySet="Images" />
-            <End Role="ProductDetails" EntitySet="ProductDetails" />
-          </AssociationSet>
-          <EntitySet Name="sysdiagrams" EntityType="ECommerce_2019_DbModel.sysdiagram" />
-        </EntityContainer>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -329,41 +329,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProductDetails">
-            <EntityTypeMapping TypeName="ECommerce_2019_DbModel.ProductDetails">
-              <MappingFragment StoreEntitySet="ProductDetails">
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="WebId" ColumnName="WebId" />
-                <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
-                <ScalarProperty Name="IsCondition" ColumnName="IsCondition" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="ECommerce_2019_DbModel.Products">
-              <MappingFragment StoreEntitySet="Products">
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
-                <ScalarProperty Name="IsNew" ColumnName="IsNew" />
-                <ScalarProperty Name="IsSale" ColumnName="IsSale" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="ProductToImages" TypeName="ECommerce_2019_DbModel.ProductToImages" StoreEntitySet="ProductToImages">
-            <EndProperty Name="Images">
-              <ScalarProperty Name="ImageId" ColumnName="ImageId" />
-            </EndProperty>
-            <EndProperty Name="ProductDetails">
-              <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="ECommerce_2019_DbModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -375,7 +340,42 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="ProductDetails">
+            <EntityTypeMapping TypeName="ECommerce_2019_DbModel.ProductDetails">
+              <MappingFragment StoreEntitySet="ProductDetails">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsCondition" ColumnName="IsCondition" />
+                <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
+                <ScalarProperty Name="WebId" ColumnName="WebId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ProductToImages" TypeName="ECommerce_2019_DbModel.ProductToImages" StoreEntitySet="ProductToImages">
+            <EndProperty Name="ProductDetails">
+              <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+            </EndProperty>
+            <EndProperty Name="Images">
+              <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="ECommerce_2019_DbModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsSale" ColumnName="IsSale" />
+                <ScalarProperty Name="IsNew" ColumnName="IsNew" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

@@ -125,9 +125,10 @@
                 <tr>
                     @foreach (var item in Model.ProductDetails.Images)
                     {
-                        <td>
-                            <img src="@item.ImageURLt" width="100" hei />
-                        </td>
+                    <td>
+                        <img src="@item.ImageURLt" width="100" hei />
+                        <a href="@Url.Action("DeleteImage", "Products", new { imageId=item.ImageId, id=Model.ProductId} )">Erase</a>
+                    </td>
                     }
                 </tr>
             </table>
