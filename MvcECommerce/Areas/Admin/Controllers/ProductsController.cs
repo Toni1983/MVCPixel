@@ -109,12 +109,41 @@ namespace MvcECommerce.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,BrandId,CategoryId,Name,Price,IsNew,IsSale,IsActive,ProductDetails")] Products products)
+        [ValidateInput(false)]
+        public ActionResult Edit([Bind(Include = "BrandId,CategoryId,Name,Price,IsNew,IsSale,IsActive,ProductDetails")] Products products,
+            HttpPostedFileBase file, string editor1, IEnumerable<HttpPostedFileBase> editeFiles)
         {
-            
+
             if (ModelState.IsValid)
             {
-                db.Entry(products).State = EntityState.Modified;
+                var editToProduct = db.Products.Find(products.ProductId);
+                editToProduct.BrandId = products.BrandId;
+                editToProduct.CategoryId = products.CategoryId;
+                ImageUpload imageUpload = new ImageUpload();
+                if (file != null)
+                {
+                    editToProduct.ImageURL = imageUpload.ImageResize(file, 255, 237);
+                }
+                editToProduct.IsActive = products.IsActive;
+                editToProduct.IsNew = products.IsNew;
+                editToProduct.IsSale = products.IsSale;
+                editToProduct.Name = products.Name;
+                editToProduct.Price = products.Price;
+                editToProduct.ProductDetails.Description = editor1;
+                editToProduct.ProductDetails.IsCondition = products.ProductDetails.IsCondition;
+                editToProduct.ProductDetails.WebId = products.ProductDetails.WebId;
+                if (editeFiles.FirstOrDefault() != null)
+                {
+                    foreach (var item in editeFiles)
+                    {
+                        var paths = imageUpload.ImageResize(item, 84, 84, 329, 380);
+                        editToProduct.ProductDetails.Images.Add(new Images
+                        {
+                            ImageURL = paths.Item1,
+                            ImageURLt = paths.Item2
+                        });
+                    }
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -124,7 +153,7 @@ namespace MvcECommerce.Areas.Admin.Controllers
             return View(products);
         }
 
-        public ActionResult DeleteImages(int imageId, int id)
+        public ActionResult DeleteImage(int imageId, int id)
         {
             db.Images.Remove(db.Products.Find(id).ProductDetails.Images.FirstOrDefault(x => x.ImageId == imageId));
             db.SaveChanges();

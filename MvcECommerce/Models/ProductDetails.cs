@@ -26,8 +26,8 @@ namespace MvcECommerce.Models
         public Nullable<bool> IsCondition { get; set; }
         public string Description { get; set; }
     
-        public virtual Products Products { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Images> Images { get; set; }
+        public virtual Products Products { get; set; }
     }
 }
