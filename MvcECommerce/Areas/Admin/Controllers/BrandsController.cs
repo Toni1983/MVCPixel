@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace MvcECommerce.Areas.Admin.Controllers {
       public class BrandsController : Controller {
-            private ECommerce_2019_DbEntities db = new ECommerce_2019_DbEntities();
+            private ECommerce_2019_DbEntities2 db = new ECommerce_2019_DbEntities2();
 
             // GET: Admin/Brands
             public ActionResult Index() {

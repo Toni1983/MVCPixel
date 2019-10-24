@@ -15,8 +15,9 @@ namespace MvcECommerce.Models
     public partial class Products
     {
         public int ProductId { get; set; }
-        public byte BrandId { get; set; }
-        public byte CategoryId { get; set; }
+        public Nullable<byte> CategoryId { get; set; }
+        public Nullable<byte> BrandId { get; set; }
+        public Nullable<int> StoreId { get; set; }
         public string Name { get; set; }
         public Nullable<double> Price { get; set; }
         public string ImageURL { get; set; }
@@ -27,6 +28,7 @@ namespace MvcECommerce.Models
     
         public virtual Brands Brands { get; set; }
         public virtual Categories Categories { get; set; }
+        public virtual Stores Stores { get; set; }
         public virtual ProductDetails ProductDetails { get; set; }
     }
 }

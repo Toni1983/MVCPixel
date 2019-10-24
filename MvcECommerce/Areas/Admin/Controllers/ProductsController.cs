@@ -13,15 +13,27 @@ namespace MvcECommerce.Areas.Admin.Controllers
 {
     public class ProductsController : Controller
     {
-        private ECommerce_2019_DbEntities db = new ECommerce_2019_DbEntities();
+        private ECommerce_2019_DbEntities2 db = new ECommerce_2019_DbEntities2();
 
         // GET: Admin/Products
         public ActionResult Index()
         {
-            var products = db.Products.Include(p => p.Brands).Include(p => p.Categories).Include(p => p.ProductDetails);
-            return View(products.ToList());
+            //var products = db.Products.Include(p => p.Brands).Include(p => p.Categories).Include(p => p.ProductDetails);
+            ViewBag.Category = new SelectList(db.Categories, "CategoryId", "Name");
+            ViewBag.Brand = new SelectList(db.Brands, "BrandId", "Name");
+            ViewBag.Store = new SelectList(db.Stores, "StoreId", "Name");
+            return View(db.Products.ToList());
         }
-
+        [HttpPost]
+        public ActionResult Index(int Category, int Brand, int store)
+        {
+            //var products = db.Products.Include(p => p.Brands).Include(p => p.Categories).Include(p => p.ProductDetails);
+            ViewBag.Category = new SelectList(db.Categories, "CategoryId", "Name");
+            ViewBag.Brand = new SelectList(db.Brands, "BrandId", "Name");
+            ViewBag.Store = new SelectList(db.Stores, "StoreId", "Name");
+            var x = db.Products.Where(a => a.CategoryId == Category && a.BrandId == Brand && a.StoreId == store).ToList();
+            return View(x);
+        }
         // GET: Admin/Products/Details/5
         public ActionResult Details(int? id)
         {
@@ -51,7 +63,7 @@ namespace MvcECommerce.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Create([Bind(Include = "BrandId,CategoryId,Name,Price,IsNew,IsSale,IsActive,ProductDetails")] Products products,
+        public ActionResult Create([Bind(Include = "ProductId,BrandId,CategoryId,Name,Price,IsNew,IsSale,IsActive,ProductDetails")] Products products,
             HttpPostedFileBase file, string editor1, IEnumerable<HttpPostedFileBase> files)
         {
             if (ModelState.IsValid)
@@ -110,7 +122,7 @@ namespace MvcECommerce.Areas.Admin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Edit([Bind(Include = "BrandId,CategoryId,Name,Price,IsNew,IsSale,IsActive,ProductDetails")] Products products,
+        public ActionResult Edit([Bind(Include = "ProductId,BrandId,CategoryId,Name,Price,IsNew,IsSale,IsActive,ProductDetails")] Products products,
             HttpPostedFileBase file, string editor1, IEnumerable<HttpPostedFileBase> editeFiles)
         {
 
@@ -147,6 +159,7 @@ namespace MvcECommerce.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            db.SaveChanges();
             ViewBag.BrandId = new SelectList(db.Brands, "BrandId", "Name", products.BrandId);
             ViewBag.CategoryId = new SelectList(db.Categories, "CategoryId", "Name", products.CategoryId);
             ViewBag.ProductId = new SelectList(db.ProductDetails, "ProductId", "Description", products.ProductId);

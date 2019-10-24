@@ -13,10 +13,10 @@ namespace MvcECommerce.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ECommerce_2019_DbEntities : DbContext
+    public partial class ECommerce_2019_DbEntities2 : DbContext
     {
-        public ECommerce_2019_DbEntities()
-            : base("name=ECommerce_2019_DbEntities")
+        public ECommerce_2019_DbEntities2()
+            : base("name=ECommerce_2019_DbEntities2")
         {
         }
     
@@ -27,9 +27,10 @@ namespace MvcECommerce.Models
     
         public virtual DbSet<Brands> Brands { get; set; }
         public virtual DbSet<Categories> Categories { get; set; }
-        public virtual DbSet<Images> Images { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<ProductDetails> ProductDetails { get; set; }
+        public virtual DbSet<Stores> Stores { get; set; }
         public virtual DbSet<Products> Products { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Images> Images { get; set; }
+        public virtual DbSet<ProductDetails> ProductDetails { get; set; }
     }
 }

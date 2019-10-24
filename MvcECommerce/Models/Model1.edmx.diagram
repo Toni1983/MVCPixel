@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7e9a7c91d27945a98d40f5043a2b3142" Name="Diagram1">
+        <EntityTypeShape EntityType="ECommerce_2019_DbModel.Brands" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ECommerce_2019_DbModel.Categories" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ECommerce_2019_DbModel.Stores" Width="1.5" PointX="0.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ECommerce_2019_DbModel.Products" Width="1.5" PointX="3" PointY="7.125" />
+        <EntityTypeShape EntityType="ECommerce_2019_DbModel.sysdiagrams" Width="1.5" PointX="3.375" PointY="0.75" />
+        <AssociationConnector Association="ECommerce_2019_DbModel.FK_Products_Brands" />
+        <AssociationConnector Association="ECommerce_2019_DbModel.FK_Products_Categories" />
+        <AssociationConnector Association="ECommerce_2019_DbModel.FK_Products_Stores" />
+        <EntityTypeShape EntityType="ECommerce_2019_DbModel.Images" Width="1.5" PointX="3" PointY="4.125" />
+        <EntityTypeShape EntityType="ECommerce_2019_DbModel.ProductDetails" Width="1.5" PointX="5.25" PointY="7.875" />
+        <AssociationConnector Association="ECommerce_2019_DbModel.FK_ProductDetails_Products" />
+        <AssociationConnector Association="ECommerce_2019_DbModel.ProductToImages" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

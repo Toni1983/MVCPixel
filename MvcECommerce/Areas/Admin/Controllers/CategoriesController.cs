@@ -10,7 +10,7 @@ using MvcECommerce.Models;
 
 namespace MvcECommerce.Areas.Admin.Controllers {
       public class CategoriesController : Controller {
-            private ECommerce_2019_DbEntities db = new ECommerce_2019_DbEntities();
+            private ECommerce_2019_DbEntities2 db = new ECommerce_2019_DbEntities2();
 
             // GET: Admin/Categories
             public ActionResult Index() {

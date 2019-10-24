@@ -8,139 +8,142 @@
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Products</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+@using (Html.BeginForm("Delete", "Products", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+    <div>
+        <h4>Products</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ProductId)
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ImageURL)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Price)
+            </dd>
 
-        <dd>
-            <img src="@Model.ImageURL" width="100" height="100" />
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ImageURL)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IsNew)
-        </dt>
+            <dd>
+                <img src="@Model.ImageURL" width="100" height="100" />
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.IsNew)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.IsNew)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IsSale)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.IsNew)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.IsSale)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.IsSale)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.IsSale)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.RegisterDate)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.IsActive)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.RegisterDate)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.RegisterDate)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Brands.Name)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.RegisterDate)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Brands.Name)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Brands.Name)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Categories.Name)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Brands.Name)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Categories.Name)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Categories.Name)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductDetails.WebId)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Categories.Name)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProductDetails.WebId)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductDetails.WebId)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductDetails.IsAvailable)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProductDetails.WebId)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProductDetails.IsAvailable)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductDetails.IsAvailable)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductDetails.IsCondition)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProductDetails.IsAvailable)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProductDetails.IsCondition)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductDetails.IsCondition)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductDetails.Description)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ProductDetails.IsCondition)
+            </dd>
 
-        <dd>
-            @*@Html.DisplayFor(model => model.ProductDetails.Description)*@
-            @Html.Raw(Model.ProductDetails.Description)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProductDetails.Description)
+            </dt>
 
-        <dt>
-            @Html.Label("Images")
-        </dt>
-        <dd>
-            <table>
-                <tr>
-                    @foreach (var item in Model.ProductDetails.Images)
-                    {
-                    <td>
-                        <img src="@item.ImageURLt" width="100" hei />
-                        <a href="@Url.Action("DeleteImage", "Products", new { imageId=item.ImageId, id=Model.ProductId} )">Erase</a>
-                    </td>
-                    }
-                </tr>
-            </table>
-        </dd>
-    </dl>
+            <dd>
+                @*@Html.DisplayFor(model => model.ProductDetails.Description)*@
+                @Html.Raw(Model.ProductDetails.Description)
+            </dd>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+            <dt>
+                @Html.Label("Images")
+            </dt>
+            <dd>
+                <table>
+                    <tr>
+                        @foreach (var item in Model.ProductDetails.Images)
+                        {
+                            <td>
+                                <img src="@item.ImageURLt" width="100" hei />
+                                <a href="@Url.Action("DeleteImage", "Products", new { imageId = item.ImageId, id = Model.ProductId })">Erase</a>
+                            </td>
+                        }
+                    </tr>
+                </table>
+            </dd>
+        </dl>
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
             @Html.ActionLink("Back to List", "Index")
         </div>
-    }
-</div>
+    </div>
+}
