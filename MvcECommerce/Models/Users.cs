@@ -12,36 +12,29 @@ namespace MvcECommerce.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Products
+    public partial class Users
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Products()
+        public Users()
         {
             this.Orders = new HashSet<Orders>();
             this.Reviews = new HashSet<Reviews>();
         }
     
-        public int ProductId { get; set; }
-        public Nullable<byte> CategoryId { get; set; }
-        public Nullable<byte> BrandId { get; set; }
-        public Nullable<int> StoreId { get; set; }
-        public string Name { get; set; }
-        public Nullable<double> Price { get; set; }
-        public string ImageURL { get; set; }
-        public Nullable<bool> IsNew { get; set; }
-        public Nullable<bool> IsSale { get; set; }
-        public Nullable<bool> IsActive { get; set; }
-        public Nullable<System.DateTime> RegisterDate { get; set; }
+        public int UserId { get; set; }
         public Nullable<int> WishlistId { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public Nullable<System.DateTime> RegisterDate { get; set; }
+        public Nullable<double> TotalPayment { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     
-        public virtual Brands Brands { get; set; }
-        public virtual Categories Categories { get; set; }
-        public virtual Stores Stores { get; set; }
-        public virtual ProductDetails ProductDetails { get; set; }
-        public virtual WishList WishList { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orders> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reviews> Reviews { get; set; }
+        public virtual UserDetails UserDetails { get; set; }
+        public virtual WishList WishList { get; set; }
     }
 }

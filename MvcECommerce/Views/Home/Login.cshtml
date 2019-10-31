@@ -1,0 +1,58 @@
+﻿@model MvcECommerce.Models.Users
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<section id="form">
+    <!--form-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-1">
+                <div class="login-form">
+                    @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+                    {
+                        <!--login form-->
+                        <h2>Login to your account</h2>
+                        @ViewBag.Register
+                        <form action="#">
+                            <input type="text" placeholder="Email" name="Email" />
+                            <input type="password" placeholder="Password" name="Password" />
+                            <span>
+                                <input type="checkbox" class="checkbox">
+                                Keep me signed in
+                            </span>
+                            <button type="submit" class="btn btn-default">Login</button>
+                        </form>
+                    }
+                </div>
+                <!--/login form-->
+            </div>
+
+            <div class="col-sm-1">
+                <h2 class="or">OR</h2>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="signup-form">
+                    @using (Html.BeginForm("Register", "Home", FormMethod.Post))
+                    {
+                        <!--sign up form-->
+                        <h2>New User Signup!</h2>
+                        @ViewBag.IncorrectPassword
+                        <form action="#">
+                            <input type="text" placeholder="Name" name="UserName" />
+                            <input type="email" placeholder="Email Address" name="Email" />
+                            <input type="password" placeholder="Password" name="Password" />
+                            <input type="password" placeholder="Password" name="Verify" />
+                            <button type="submit" class="btn btn-default">Signup</button>
+                        </form>
+                    }
+                </div><!--/sign up form-->
+            </div>
+        </div>
+    </div>
+</section>
+

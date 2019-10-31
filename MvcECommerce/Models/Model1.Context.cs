@@ -32,5 +32,11 @@ namespace MvcECommerce.Models
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Images> Images { get; set; }
         public virtual DbSet<ProductDetails> ProductDetails { get; set; }
+        public virtual DbSet<CouponCodes> CouponCodes { get; set; }
+        public virtual DbSet<Orders> Orders { get; set; }
+        public virtual DbSet<Reviews> Reviews { get; set; }
+        public virtual DbSet<UserDetails> UserDetails { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<WishList> WishList { get; set; }
     }
 }

@@ -43,6 +43,10 @@ namespace MvcECommerce.Models
                 List<Images> images = db.Images.Where(x => x.ImageId == id).ToList();
                 return images;
         }
+        public Users GetUserId(int? UserId)
+        {
+            return db.Users.Find(UserId);
+        }
 
     }
 }

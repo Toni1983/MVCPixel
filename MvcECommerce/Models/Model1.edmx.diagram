@@ -17,6 +17,20 @@
         <EntityTypeShape EntityType="ECommerce_2019_DbModel.ProductDetails" Width="1.5" PointX="5.25" PointY="7.875" />
         <AssociationConnector Association="ECommerce_2019_DbModel.FK_ProductDetails_Products" />
         <AssociationConnector Association="ECommerce_2019_DbModel.ProductToImages" />
+        <EntityTypeShape EntityType="ECommerce_2019_DbModel.CouponCodes" Width="1.5" PointX="3.75" PointY="17.125" />
+        <EntityTypeShape EntityType="ECommerce_2019_DbModel.Orders" Width="1.5" PointX="3.75" PointY="9.5" />
+        <EntityTypeShape EntityType="ECommerce_2019_DbModel.Reviews" Width="1.5" PointX="8.25" PointY="11.75" />
+        <EntityTypeShape EntityType="ECommerce_2019_DbModel.UserDetails" Width="1.5" PointX="3.75" PointY="20.125" />
+        <EntityTypeShape EntityType="ECommerce_2019_DbModel.Users" Width="1.5" PointX="1.5" PointY="11.375" />
+        <EntityTypeShape EntityType="ECommerce_2019_DbModel.WishList" Width="1.5" PointX="0.75" PointY="8.625" />
+        <AssociationConnector Association="ECommerce_2019_DbModel.FK_Orders_CouponCodes" />
+        <AssociationConnector Association="ECommerce_2019_DbModel.FK_Orders_Users" />
+        <AssociationConnector Association="ECommerce_2019_DbModel.FK_Products_WishList" />
+        <AssociationConnector Association="ECommerce_2019_DbModel.FK_Reviews_Users" />
+        <AssociationConnector Association="ECommerce_2019_DbModel.FK_UserDetails_Users" />
+        <AssociationConnector Association="ECommerce_2019_DbModel.FK_Users_WishList" />
+        <AssociationConnector Association="ECommerce_2019_DbModel.OrdersToProducts" />
+        <AssociationConnector Association="ECommerce_2019_DbModel.ReviewsToProducts" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
