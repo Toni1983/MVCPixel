@@ -17,16 +17,15 @@ namespace MvcECommerce.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public WishList()
         {
-            this.Products = new HashSet<Products>();
-            this.Users = new HashSet<Users>();
+            this.WishListToProducts = new HashSet<WishListToProducts>();
         }
     
-        public int WishlistId { get; set; }
+        public int WishListId { get; set; }
+        public Nullable<int> UserId { get; set; }
         public Nullable<bool> IsActive { get; set; }
     
+        public virtual Users Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Products> Products { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Users> Users { get; set; }
+        public virtual ICollection<WishListToProducts> WishListToProducts { get; set; }
     }
 }

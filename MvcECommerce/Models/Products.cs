@@ -19,6 +19,8 @@ namespace MvcECommerce.Models
         {
             this.Orders = new HashSet<Orders>();
             this.Reviews = new HashSet<Reviews>();
+            this.WishListToProducts = new HashSet<WishListToProducts>();
+            this.WishListToProducts1 = new HashSet<WishListToProducts>();
         }
     
         public int ProductId { get; set; }
@@ -32,16 +34,18 @@ namespace MvcECommerce.Models
         public Nullable<bool> IsSale { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public Nullable<System.DateTime> RegisterDate { get; set; }
-        public Nullable<int> WishlistId { get; set; }
     
         public virtual Brands Brands { get; set; }
         public virtual Categories Categories { get; set; }
-        public virtual Stores Stores { get; set; }
         public virtual ProductDetails ProductDetails { get; set; }
-        public virtual WishList WishList { get; set; }
+        public virtual Stores Stores { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orders> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reviews> Reviews { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WishListToProducts> WishListToProducts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WishListToProducts> WishListToProducts1 { get; set; }
     }
 }

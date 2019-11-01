@@ -45,7 +45,15 @@ namespace MvcECommerce.Models
         }
         public Users GetUserId(int? UserId)
         {
-            return db.Users.Find(UserId);
+            if (UserId != null)
+            {
+                return db.Users.Find(UserId);
+            }
+            else
+            {
+                return db.Users.Find(3);
+            }
+            
         }
 
     }

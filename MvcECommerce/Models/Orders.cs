@@ -27,8 +27,10 @@ namespace MvcECommerce.Models
         public Nullable<System.DateTime> Registerdate { get; set; }
         public Nullable<double> ShippingPrice { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public int UnregisterredId { get; set; }
     
         public virtual CouponCodes CouponCodes { get; set; }
+        public virtual UnregisteredUsers UnregisteredUsers { get; set; }
         public virtual Users Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Products> Products { get; set; }

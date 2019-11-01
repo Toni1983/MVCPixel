@@ -28,7 +28,6 @@ namespace MvcECommerce.Models
         public virtual DbSet<Brands> Brands { get; set; }
         public virtual DbSet<Categories> Categories { get; set; }
         public virtual DbSet<Stores> Stores { get; set; }
-        public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Images> Images { get; set; }
         public virtual DbSet<ProductDetails> ProductDetails { get; set; }
@@ -36,7 +35,10 @@ namespace MvcECommerce.Models
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<Reviews> Reviews { get; set; }
         public virtual DbSet<UserDetails> UserDetails { get; set; }
+        public virtual DbSet<UnregisteredUsers> UnregisteredUsers { get; set; }
+        public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<WishList> WishList { get; set; }
+        public virtual DbSet<WishListToProducts> WishListToProducts { get; set; }
     }
 }

@@ -20,6 +20,7 @@ namespace MvcECommerce.Controllers
             dy.categories = vm.GetCategories();
             dy.products = vm.FilterProducts(id);
             dy.brands = vm.GetBrands();
+            dy.currentUser = vm.GetUserId(UserId);
             if (UserId != null)
             {
                 var currentUser = vm.GetUserId(UserId);
@@ -81,6 +82,20 @@ namespace MvcECommerce.Controllers
                 ViewBag.IncorrectPassword = "Please enter the same Password";
                 return RedirectToAction("Login");
             }
+        }
+        public ActionResult AddToWishlist(int id,int UserId , WishList wishList)
+        {
+            var productId = db.Products.Find(id);
+            var userId = db.Users.Find(UserId);
+            wishList.IsActive = true;
+            db.WishList.Add(wishList);
+            db.SaveChanges();
+            return RedirectToAction("Index", new { UserId = userId.UserId });
+        }
+        public ActionResult DisplayWishList(int UserId)
+        {
+            List<WishList> wishList = db.WishList.OrderBy(x => x.UserId == UserId).ToList();
+            return RedirectToAction("Index", new { wishList, UserId = UserId });
         }
     }
 }
