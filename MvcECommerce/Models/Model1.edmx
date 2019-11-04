@@ -185,16 +185,9 @@
             <PropertyRef Name="WishListId" />
           </Key>
           <Property Name="WishListId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" />
           <Property Name="UserId" Type="int" />
           <Property Name="IsActive" Type="bit" />
-        </EntityType>
-        <EntityType Name="WishListToProducts">
-          <Key>
-            <PropertyRef Name="ProductId" />
-            <PropertyRef Name="WishListId" />
-          </Key>
-          <Property Name="ProductId" Type="int" Nullable="false" />
-          <Property Name="WishListId" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Orders_CouponCodes">
           <End Role="CouponCodes" Type="Self.CouponCodes" Multiplicity="1" />
@@ -382,6 +375,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WishList_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="WishList" Type="Self.WishList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="WishList">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_WishList_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="WishList" Type="Self.WishList" Multiplicity="*" />
@@ -391,42 +396,6 @@
             </Principal>
             <Dependent Role="WishList">
               <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WishListToProducts_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="1" />
-          <End Role="WishListToProducts" Type="Self.WishListToProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductId" />
-            </Principal>
-            <Dependent Role="WishListToProducts">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WishListToProducts_Products1">
-          <End Role="Products" Type="Self.Products" Multiplicity="1" />
-          <End Role="WishListToProducts" Type="Self.WishListToProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductId" />
-            </Principal>
-            <Dependent Role="WishListToProducts">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WishListToProducts_WishList">
-          <End Role="WishList" Type="Self.WishList" Multiplicity="1" />
-          <End Role="WishListToProducts" Type="Self.WishListToProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WishList">
-              <PropertyRef Name="WishListId" />
-            </Principal>
-            <Dependent Role="WishListToProducts">
-              <PropertyRef Name="WishListId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -448,7 +417,6 @@
           <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WishList" EntityType="Self.WishList" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="WishListToProducts" EntityType="Self.WishListToProducts" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Orders_CouponCodes" Association="Self.FK_Orders_CouponCodes">
             <End Role="CouponCodes" EntitySet="CouponCodes" />
             <End Role="Orders" EntitySet="Orders" />
@@ -509,21 +477,13 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="UserDetails" EntitySet="UserDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_WishList_Products" Association="Self.FK_WishList_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="WishList" EntitySet="WishList" />
+          </AssociationSet>
           <AssociationSet Name="FK_WishList_Users" Association="Self.FK_WishList_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="WishList" EntitySet="WishList" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WishListToProducts_Products" Association="Self.FK_WishListToProducts_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="WishListToProducts" EntitySet="WishListToProducts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WishListToProducts_Products1" Association="Self.FK_WishListToProducts_Products1">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="WishListToProducts" EntitySet="WishListToProducts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WishListToProducts_WishList" Association="Self.FK_WishListToProducts_WishList">
-            <End Role="WishList" EntitySet="WishList" />
-            <End Role="WishListToProducts" EntitySet="WishListToProducts" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -584,27 +544,10 @@
             <End Role="UnregisteredUsers" EntitySet="UnregisteredUsers" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <EntitySet Name="Products" EntityType="ECommerce_2019_DbModel.Products" />
           <EntitySet Name="Users" EntityType="ECommerce_2019_DbModel.Users" />
-          <AssociationSet Name="FK_Products_Brands" Association="ECommerce_2019_DbModel.FK_Products_Brands">
-            <End Role="Brands" EntitySet="Brands" />
-            <End Role="Products" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Products_Categories" Association="ECommerce_2019_DbModel.FK_Products_Categories">
-            <End Role="Categories" EntitySet="Categories" />
-            <End Role="Products" EntitySet="Products" />
-          </AssociationSet>
           <AssociationSet Name="FK_Orders_Users" Association="ECommerce_2019_DbModel.FK_Orders_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductDetails_Products" Association="ECommerce_2019_DbModel.FK_ProductDetails_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="ProductDetails" EntitySet="ProductDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Products_Stores" Association="ECommerce_2019_DbModel.FK_Products_Stores">
-            <End Role="Stores" EntitySet="Stores" />
-            <End Role="Products" EntitySet="Products" />
           </AssociationSet>
           <AssociationSet Name="FK_Reviews_Users" Association="ECommerce_2019_DbModel.FK_Reviews_Users">
             <End Role="Users" EntitySet="Users" />
@@ -614,6 +557,32 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="UserDetails" EntitySet="UserDetails" />
           </AssociationSet>
+          <EntitySet Name="Products" EntityType="ECommerce_2019_DbModel.Products" />
+          <EntitySet Name="WishList" EntityType="ECommerce_2019_DbModel.WishList" />
+          <AssociationSet Name="FK_Products_Brands" Association="ECommerce_2019_DbModel.FK_Products_Brands">
+            <End Role="Brands" EntitySet="Brands" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Categories" Association="ECommerce_2019_DbModel.FK_Products_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductDetails_Products" Association="ECommerce_2019_DbModel.FK_ProductDetails_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductDetails" EntitySet="ProductDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_Stores" Association="ECommerce_2019_DbModel.FK_Products_Stores">
+            <End Role="Stores" EntitySet="Stores" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishList_Products" Association="ECommerce_2019_DbModel.FK_WishList_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="WishList" EntitySet="WishList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishList_Users" Association="ECommerce_2019_DbModel.FK_WishList_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="WishList" EntitySet="WishList" />
+          </AssociationSet>
           <AssociationSet Name="OrdersToProducts" Association="ECommerce_2019_DbModel.OrdersToProducts">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="Products" EntitySet="Products" />
@@ -621,24 +590,6 @@
           <AssociationSet Name="ReviewsToProducts" Association="ECommerce_2019_DbModel.ReviewsToProducts">
             <End Role="Products" EntitySet="Products" />
             <End Role="Reviews" EntitySet="Reviews" />
-          </AssociationSet>
-          <EntitySet Name="WishList" EntityType="ECommerce_2019_DbModel.WishList" />
-          <EntitySet Name="WishListToProducts" EntityType="ECommerce_2019_DbModel.WishListToProducts" />
-          <AssociationSet Name="FK_WishListToProducts_Products" Association="ECommerce_2019_DbModel.FK_WishListToProducts_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="WishListToProducts" EntitySet="WishListToProducts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WishListToProducts_Products1" Association="ECommerce_2019_DbModel.FK_WishListToProducts_Products1">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="WishListToProducts" EntitySet="WishListToProducts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WishList_Users" Association="ECommerce_2019_DbModel.FK_WishList_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="WishList" EntitySet="WishList" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WishListToProducts_WishList" Association="ECommerce_2019_DbModel.FK_WishListToProducts_WishList">
-            <End Role="WishList" EntitySet="WishList" />
-            <End Role="WishListToProducts" EntitySet="WishListToProducts" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="sysdiagrams">
@@ -777,6 +728,58 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RegisterDate" Type="DateTime" Precision="0" />
+          <Property Name="TotalPayment" Type="Double" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Orders" Relationship="ECommerce_2019_DbModel.FK_Orders_Users" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="Reviews" Relationship="ECommerce_2019_DbModel.FK_Reviews_Users" FromRole="Users" ToRole="Reviews" />
+          <NavigationProperty Name="UserDetails" Relationship="ECommerce_2019_DbModel.FK_UserDetails_Users" FromRole="Users" ToRole="UserDetails" />
+          <NavigationProperty Name="WishList" Relationship="ECommerce_2019_DbModel.FK_WishList_Users" FromRole="Users" ToRole="WishList" />
+        </EntityType>
+        <Association Name="FK_Orders_Users">
+          <End Type="ECommerce_2019_DbModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="ECommerce_2019_DbModel.Orders" Role="Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviews_Users">
+          <End Type="ECommerce_2019_DbModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="ECommerce_2019_DbModel.Reviews" Role="Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDetails_Users">
+          <End Type="ECommerce_2019_DbModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="ECommerce_2019_DbModel.UserDetails" Role="UserDetails" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserDetails">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="ProductId" />
@@ -796,26 +799,20 @@
           <NavigationProperty Name="Categories" Relationship="ECommerce_2019_DbModel.FK_Products_Categories" FromRole="Products" ToRole="Categories" />
           <NavigationProperty Name="ProductDetails" Relationship="ECommerce_2019_DbModel.FK_ProductDetails_Products" FromRole="Products" ToRole="ProductDetails" />
           <NavigationProperty Name="Stores" Relationship="ECommerce_2019_DbModel.FK_Products_Stores" FromRole="Products" ToRole="Stores" />
+          <NavigationProperty Name="WishList" Relationship="ECommerce_2019_DbModel.FK_WishList_Products" FromRole="Products" ToRole="WishList" />
           <NavigationProperty Name="Orders" Relationship="ECommerce_2019_DbModel.OrdersToProducts" FromRole="Products" ToRole="Orders" />
           <NavigationProperty Name="Reviews" Relationship="ECommerce_2019_DbModel.ReviewsToProducts" FromRole="Products" ToRole="Reviews" />
-          <NavigationProperty Name="WishListToProducts" Relationship="ECommerce_2019_DbModel.FK_WishListToProducts_Products" FromRole="Products" ToRole="WishListToProducts" />
-          <NavigationProperty Name="WishListToProducts1" Relationship="ECommerce_2019_DbModel.FK_WishListToProducts_Products1" FromRole="Products" ToRole="WishListToProducts" />
         </EntityType>
-        <EntityType Name="Users">
+        <EntityType Name="WishList">
           <Key>
-            <PropertyRef Name="UserId" />
+            <PropertyRef Name="WishListId" />
           </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RegisterDate" Type="DateTime" Precision="0" />
-          <Property Name="TotalPayment" Type="Double" />
+          <Property Name="WishListId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Orders" Relationship="ECommerce_2019_DbModel.FK_Orders_Users" FromRole="Users" ToRole="Orders" />
-          <NavigationProperty Name="Reviews" Relationship="ECommerce_2019_DbModel.FK_Reviews_Users" FromRole="Users" ToRole="Reviews" />
-          <NavigationProperty Name="UserDetails" Relationship="ECommerce_2019_DbModel.FK_UserDetails_Users" FromRole="Users" ToRole="UserDetails" />
-          <NavigationProperty Name="WishList" Relationship="ECommerce_2019_DbModel.FK_WishList_Users" FromRole="Users" ToRole="WishList" />
+          <NavigationProperty Name="Products" Relationship="ECommerce_2019_DbModel.FK_WishList_Products" FromRole="WishList" ToRole="Products" />
+          <NavigationProperty Name="Users" Relationship="ECommerce_2019_DbModel.FK_WishList_Users" FromRole="WishList" ToRole="Users" />
         </EntityType>
         <Association Name="FK_Products_Brands">
           <End Type="ECommerce_2019_DbModel.Brands" Role="Brands" Multiplicity="0..1" />
@@ -838,18 +835,6 @@
             </Principal>
             <Dependent Role="Products">
               <PropertyRef Name="CategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Orders_Users">
-          <End Type="ECommerce_2019_DbModel.Users" Role="Users" Multiplicity="1" />
-          <End Type="ECommerce_2019_DbModel.Orders" Role="Orders" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -879,79 +864,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Reviews_Users">
-          <End Type="ECommerce_2019_DbModel.Users" Role="Users" Multiplicity="1" />
-          <End Type="ECommerce_2019_DbModel.Reviews" Role="Reviews" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Reviews">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserDetails_Users">
-          <End Type="ECommerce_2019_DbModel.Users" Role="Users" Multiplicity="1" />
-          <End Type="ECommerce_2019_DbModel.UserDetails" Role="UserDetails" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="UserDetails">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="OrdersToProducts">
-          <End Type="ECommerce_2019_DbModel.Orders" Role="Orders" Multiplicity="*" />
-          <End Type="ECommerce_2019_DbModel.Products" Role="Products" Multiplicity="*" />
-        </Association>
-        <Association Name="ReviewsToProducts">
-          <End Type="ECommerce_2019_DbModel.Products" Role="Products" Multiplicity="*" />
-          <End Type="ECommerce_2019_DbModel.Reviews" Role="Reviews" Multiplicity="*" />
-        </Association>
-        <EntityType Name="WishList">
-          <Key>
-            <PropertyRef Name="WishListId" />
-          </Key>
-          <Property Name="WishListId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" />
-          <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Users" Relationship="ECommerce_2019_DbModel.FK_WishList_Users" FromRole="WishList" ToRole="Users" />
-          <NavigationProperty Name="WishListToProducts" Relationship="ECommerce_2019_DbModel.FK_WishListToProducts_WishList" FromRole="WishList" ToRole="WishListToProducts" />
-        </EntityType>
-        <EntityType Name="WishListToProducts">
-          <Key>
-            <PropertyRef Name="ProductId" />
-            <PropertyRef Name="WishListId" />
-          </Key>
-          <Property Name="ProductId" Type="Int32" Nullable="false" />
-          <Property Name="WishListId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Products" Relationship="ECommerce_2019_DbModel.FK_WishListToProducts_Products" FromRole="WishListToProducts" ToRole="Products" />
-          <NavigationProperty Name="Products1" Relationship="ECommerce_2019_DbModel.FK_WishListToProducts_Products1" FromRole="WishListToProducts" ToRole="Products" />
-          <NavigationProperty Name="WishList" Relationship="ECommerce_2019_DbModel.FK_WishListToProducts_WishList" FromRole="WishListToProducts" ToRole="WishList" />
-        </EntityType>
-        <Association Name="FK_WishListToProducts_Products">
-          <End Type="ECommerce_2019_DbModel.Products" Role="Products" Multiplicity="1" />
-          <End Type="ECommerce_2019_DbModel.WishListToProducts" Role="WishListToProducts" Multiplicity="*" />
+        <Association Name="FK_WishList_Products">
+          <End Type="ECommerce_2019_DbModel.Products" Role="Products" Multiplicity="0..1" />
+          <End Type="ECommerce_2019_DbModel.WishList" Role="WishList" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
               <PropertyRef Name="ProductId" />
             </Principal>
-            <Dependent Role="WishListToProducts">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WishListToProducts_Products1">
-          <End Type="ECommerce_2019_DbModel.Products" Role="Products" Multiplicity="1" />
-          <End Type="ECommerce_2019_DbModel.WishListToProducts" Role="WishListToProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductId" />
-            </Principal>
-            <Dependent Role="WishListToProducts">
+            <Dependent Role="WishList">
               <PropertyRef Name="ProductId" />
             </Dependent>
           </ReferentialConstraint>
@@ -968,17 +888,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_WishListToProducts_WishList">
-          <End Type="ECommerce_2019_DbModel.WishList" Role="WishList" Multiplicity="1" />
-          <End Type="ECommerce_2019_DbModel.WishListToProducts" Role="WishListToProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="WishList">
-              <PropertyRef Name="WishListId" />
-            </Principal>
-            <Dependent Role="WishListToProducts">
-              <PropertyRef Name="WishListId" />
-            </Dependent>
-          </ReferentialConstraint>
+        <Association Name="OrdersToProducts">
+          <End Type="ECommerce_2019_DbModel.Orders" Role="Orders" Multiplicity="*" />
+          <End Type="ECommerce_2019_DbModel.Products" Role="Products" Multiplicity="*" />
+        </Association>
+        <Association Name="ReviewsToProducts">
+          <End Type="ECommerce_2019_DbModel.Products" Role="Products" Multiplicity="*" />
+          <End Type="ECommerce_2019_DbModel.Reviews" Role="Reviews" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -1128,6 +1044,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ECommerce_2019_DbModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
+                <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="ECommerce_2019_DbModel.Products">
               <MappingFragment StoreEntitySet="Products">
@@ -1145,16 +1074,13 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="ECommerce_2019_DbModel.Users">
-              <MappingFragment StoreEntitySet="Users">
+          <EntitySetMapping Name="WishList">
+            <EntityTypeMapping TypeName="ECommerce_2019_DbModel.WishList">
+              <MappingFragment StoreEntitySet="WishList">
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="TotalPayment" ColumnName="TotalPayment" />
-                <ScalarProperty Name="RegisterDate" ColumnName="RegisterDate" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="WishListId" ColumnName="WishListId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1174,23 +1100,6 @@
               <ScalarProperty Name="ProductId" ColumnName="ProductId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="WishList">
-            <EntityTypeMapping TypeName="ECommerce_2019_DbModel.WishList">
-              <MappingFragment StoreEntitySet="WishList">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="WishListId" ColumnName="WishListId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WishListToProducts">
-            <EntityTypeMapping TypeName="ECommerce_2019_DbModel.WishListToProducts">
-              <MappingFragment StoreEntitySet="WishListToProducts">
-                <ScalarProperty Name="WishListId" ColumnName="WishListId" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

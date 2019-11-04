@@ -1,5 +1,6 @@
-﻿@using MvcECommerce.Models;
-@model dynamic
+﻿@using MvcECommerce.Models.ViewMoldels
+@*@using MvcECommerce.Models;
+@model dynamic*@
 @{
     ViewBag.Title = "ProductDetails";
 }
@@ -9,12 +10,11 @@
         <div class="row">
             <div class="col-sm-3">
                 <div class="left-sidebar">
-                    <h2>Category</h2>
                     <div class="panel-group category-products" id="accordian">
                         <!--category-productsr-->
                         <h2>Categories</h2>
                         <table>
-                            @foreach (Categories cg in Model.categories)
+                            @foreach (var cg in Model.Categories)
                             {
                                 <tr class="panel-heading">
                                     <td class="panel-title">
@@ -28,7 +28,7 @@
                             <!--brands_products-->
                             <h2>Brands</h2>
                             <table class="tab-content">
-                                @foreach (Brands br in Model.brands)
+                                @foreach (var br in Model.Brands)
                                 {
                                     <tr class="panel-heading">
                                         <td class="panel-title">
@@ -63,7 +63,7 @@
                             <!--product-details-->
                             <div class="col-sm-5">
                                 <div class="view-product">
-                                    <img src="@Model.productId.ImageURL" alt="" />
+                                    <img src="@Model.ProductId.ImageURL" alt="" />
                                     <h3>ZOOM</h3>
                                 </div>
                                 <div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -71,7 +71,7 @@
                                     <!-- Wrapper for slides -->
                                     <div class="carousel-inner">
                                         <div class="item active">
-                                            @foreach (Images im in Model.images)
+                                            @foreach (var im in Model.ProductId.ProductDetails.Images)
                                             {
                                                 <img src="@im.ImageURLt" />
                                             }
@@ -92,11 +92,11 @@
                                 <div class="product-information">
                                     <!--/product-information-->
                                     <img src="~/Content/images/product-details/new.jpg" class="newarrival" alt="" />
-                                    <h2>@Model.productId.Name</h2>
+                                    <h2>@Model.ProductId.Name</h2>
                                     <p>Web ID: 1089772</p>
                                     <img src="~/Content/images/product-details/rating.png" alt="" />
                                     <span>
-                                        <span>@Model.productId.Price</span>
+                                        <span>@Model.ProductId.Price</span>
                                         <label>Quantity:</label>
                                         <input type="text" value="3" />
                                         <button type="button" class="btn btn-fefault cart">
@@ -104,9 +104,9 @@
                                             Add to cart
                                         </button>
                                     </span>
-                                    <p><b>Availability:</b>@Model.productId.ProductDetails.IsAvailable</p>
-                                    <p><b>Condition:</b> @Model.productId.ProductDetails.IsCondition</p>
-                                    <p><b>Brand:</b> @Model.productId.BrandId</p>
+                                    <p><b>Availability:</b>@Model.ProductId.ProductDetails.IsAvailable</p>
+                                    <p><b>Condition:</b> @Model.ProductId.ProductDetails.IsCondition</p>
+                                    <p><b>Brand:</b> @Model.ProductId.BrandId</p>
                                     <a href=""><img src="~/Content/images/product-details/share.png" class="share img-responsive" alt="" /></a>
                                 </div><!--/product-information-->
                             </div>

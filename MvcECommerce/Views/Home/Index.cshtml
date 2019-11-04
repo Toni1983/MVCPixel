@@ -1,5 +1,6 @@
-﻿@using MvcECommerce.Models;
-@model dynamic
+﻿@model  MvcECommerce.Models.ViewMoldels.HomeViewModel
+@*@using MvcECommerce.Models;
+    @model dynamic*@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,9 +11,6 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
-                <div class="logo pull-left">
-                    <a href="@Url.Action("Index", "Home")"><img src="~/Content/images/home/logo.png" alt="" /></a>
-                </div>
                 <div class="btn-group pull-right">
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
@@ -41,7 +39,7 @@
                 <div class="shop-menu pull-right">
                     <ul class="nav navbar-nav">
                         <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-                        <li><a href="@Url.Action("DisplayWishList", "Home", new { UserId = Model.currentUser.UserId})"><i class="fa fa-star"></i> Wishlist</a></li>
+                        <li><a href="@Url.Action("DisplayWishList", "Home")"><i class="fa fa-star"></i> Wishlist</a></li>
                         <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                         <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                         <li>
@@ -186,46 +184,53 @@
                     <div class="panel-group category-products" id="accordian">
                         <h2>Categories</h2>
                         <table>
-                            @foreach (Categories cg in Model.categories)
+                            @foreach (var cg in Model.Categories)
                             {
+
                                 <tr class="panel-heading">
                                     <td class="panel-title">
-                                        <a href="@Url.Action("Filter", "Home",
-                                            new { Id= cg.CategoryId })">@cg.Name</a>
-                                        </td>
-                                    </tr>
-                                }
+                                        <form method="post">
+                                            <input type="hidden" name="id" value="@cg.CategoryId" />
+                                            <button type="submit" style="border:none; background-color:white">@cg.Name</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
                         </table>
                         <div class="brands_products">
                             <!--brands_products-->
                             <h2>Brands</h2>
                             <table class="tab-content">
-                                @foreach (Brands br in Model.brands)
+                                @foreach (var br in Model.Brands)
                                 {
+
                                     <tr class="panel-heading">
                                         <td class="panel-title">
-                                            <a href="@Url.Action("Filter", "Home",
-                                                    new { Id= br.BrandId })">@br.Name</a>
-                                                </td>
-                                            </tr>
-                                        }
+                                            <form method="post">
+                                                <input type="hidden" name="id" value="@br.BrandId" />
+                                                <button type="submit" style="border:none; background-color:white">@br.Name</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
                             </table>
-                        </div><!--/brands_products-->
 
-                        <div class="price-range">
-                            <!--price-range-->
-                            <h2>Price Range</h2>
-                            <div class="well text-center">
-                                <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2"><br />
-                                <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
-                            </div>
-                        </div><!--/price-range-->
+                            <!--/brands_products-->
 
-                        <div class="shipping text-center">
-                            <!--shipping-->
-                            <img src="~/Content/images/home/shipping.jpg" alt="" />
-                        </div><!--/shipping-->
+                            <div class="price-range">
+                                <!--price-range-->
+                                <h2>Price Range</h2>
+                                <div class="well text-center">
+                                    <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2"><br />
+                                    <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
+                                </div>
+                            </div><!--/price-range-->
 
+                            <div class="shipping text-center">
+                                <!--shipping-->
+                                <img src="~/Content/images/home/shipping.jpg" alt="" />
+                            </div><!--/shipping-->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -234,7 +239,7 @@
                     <!--features_items-->
                     <h2 class="title text-center">Features Items</h2>
                     <div class="col-sm-4">
-                        @foreach (Products pr in Model.products)
+                        @foreach (var pr in Model.Products)
                         {
 
                             <div class="product-image-wrapper">
@@ -250,15 +255,13 @@
                                             @pr.Name <br />
                                             @pr.Price<br />
                                             <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                            <a href="@Url.Action("AddToWishlist", "Home", new { id = pr.ProductId, UserId = Model.currentUser.UserId})" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to Wishlist</a>
-                                            <a href="@Url.Action("ProductDetails", "Home", new { id = pr.ProductId})" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Product Details</a>
+                                            <a href="@Url.Action("AddToWishlist", "Home", new { id = pr.ProductId, UserId = Model.Users })" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to Wishlist</a>
+                                            <a href="@Url.Action("ProductDetails", "Home", new { id = pr.ProductId })" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Product Details</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         }
-
                     </div>
                 </div>
 

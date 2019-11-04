@@ -17,10 +17,9 @@ namespace MvcECommerce.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Products()
         {
+            this.WishList = new HashSet<WishList>();
             this.Orders = new HashSet<Orders>();
             this.Reviews = new HashSet<Reviews>();
-            this.WishListToProducts = new HashSet<WishListToProducts>();
-            this.WishListToProducts1 = new HashSet<WishListToProducts>();
         }
     
         public int ProductId { get; set; }
@@ -40,12 +39,10 @@ namespace MvcECommerce.Models
         public virtual ProductDetails ProductDetails { get; set; }
         public virtual Stores Stores { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WishList> WishList { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orders> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reviews> Reviews { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WishListToProducts> WishListToProducts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WishListToProducts> WishListToProducts1 { get; set; }
     }
 }

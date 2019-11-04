@@ -36,9 +36,8 @@ namespace MvcECommerce.Models
         public virtual DbSet<Reviews> Reviews { get; set; }
         public virtual DbSet<UserDetails> UserDetails { get; set; }
         public virtual DbSet<UnregisteredUsers> UnregisteredUsers { get; set; }
-        public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<WishList> WishList { get; set; }
-        public virtual DbSet<WishListToProducts> WishListToProducts { get; set; }
     }
 }
